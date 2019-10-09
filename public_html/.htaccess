@@ -1,0 +1,6 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^daniellebn\.mtacloud\.co\.il$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.daniellebn\.mtacloud\.co\.il$
+RewriteRule ^daniellebn\.mtacloud\.co\.il$ "https\:\/\/daniellebn\.mtacloud\.co\.il\/page3\.html" [R=301,L]
+
