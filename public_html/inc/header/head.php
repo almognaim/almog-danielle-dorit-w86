@@ -16,5 +16,5 @@
     <!-- main Css -->
     <link rel="stylesheet" href="https://daniellebn.mtacloud.co.il/asset/css/sidebars.css">
     <link rel="stylesheet" href="https://daniellebn.mtacloud.co.il/asset/css/steps.css">
-    <link rel="stylesheet" href="./asset/css/style.css">
+    <link rel="stylesheet" href="/asset/css/style.css">
 </head>

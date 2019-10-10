@@ -23,11 +23,6 @@
       <div class="title">
         <h4>רשימת ספקים</h4>
       </div>
-
-      <div class="text">
-        <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-      </div>
-
       <a href="#">Learn More</a>
     </a>
   </div>
@@ -45,11 +40,6 @@
       <div class="title">
         <h4>הזמנה חדשה</h4>
       </div>
-
-      <div class="text">
-        <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-      </div>
-
       <a href="#">Learn More</a>
     </a>
   </div>
@@ -67,11 +57,6 @@
       <div class="title">
         <h4>רשימת מלאי</h4>
       </div>
-
-      <div class="text">
-        <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-      </div>
-
       <a href="#">Learn More</a>
     </a>
   </div>
@@ -81,8 +66,6 @@
 </div>
 
 <div class="col-md-6 col-12">
-
-
   <div class="box-part text-center">
     <a href="employee.php">
       <i class="fas fa-people-carry"></i>
@@ -90,11 +73,6 @@
       <div class="title">
         <h4>קליטת סחורה</h4>
       </div>
-
-      <div class="text">
-        <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-      </div>
-
       <a href="#">Learn More</a>
 
     </a>

@@ -1,7 +1,7 @@
 <?php
 session_start();
-if( !$_SESSION['user_id'] ){
-    header('location: login.php');
+if (!$_SESSION['user_id']) {
+  header('location: login.php');
 }
 include 'inc/header/header.php'; ?>
 
@@ -27,11 +27,6 @@ include 'inc/header/header.php'; ?>
               <div class="title">
                 <h4>רשימת ספקים</h4>
               </div>
-
-              <div class="text">
-                <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-              </div>
-
               <a href="#">Learn More</a>
             </a>
           </div>
@@ -49,12 +44,7 @@ include 'inc/header/header.php'; ?>
               <div class="title">
                 <h4>הזמנה חדשה</h4>
               </div>
-
-              <div class="text">
-                <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-              </div>
-
-              <a href="#">Learn More</a>
+              ק<a href="#">Learn More</a>
             </a>
           </div>
 
@@ -70,10 +60,6 @@ include 'inc/header/header.php'; ?>
 
               <div class="title">
                 <h4>רשימת מלאי</h4>
-              </div>
-
-              <div class="text">
-                <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
               </div>
 
               <a href="#">Learn More</a>
@@ -94,11 +80,6 @@ include 'inc/header/header.php'; ?>
               <div class="title">
                 <h4>קליטת סחורה</h4>
               </div>
-
-              <div class="text">
-                <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-              </div>
-
               <a href="#">Learn More</a>
 
             </a>
@@ -106,7 +87,6 @@ include 'inc/header/header.php'; ?>
           </div>
 
         </div>
-
 
       </div>
     </div>

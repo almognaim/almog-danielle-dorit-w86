@@ -112,3 +112,6 @@ a#show-sidebar i.fas.fa-bars {
 .btn-dark:focus {
     box-shadow: none;
 }
+#suppliers_wrapper {
+    width: 100%;
+}
