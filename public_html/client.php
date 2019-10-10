@@ -279,7 +279,6 @@ $user_id = $_GET['identity_card'];
 
 <!-- Main End -->
 
-<!-- Modal -->
 <div class="modal fade" id="addFixModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -302,25 +301,58 @@ $user_id = $_GET['identity_card'];
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="input-group mt-3">
-                            <div class="form-group">
-                                <select id="selectStatus" class="form-control" name="selectStatus">
-                                    <option>בטיפול</option>
-                                    <option>סגור</option>
-                                </select>
+                                <div class="form-group">
+                                    <select id="selectStatus" class="form-control" name="selectStatus">
+                                        <option>בטיפול</option>
+                                        <option>סגור</option>
+                                    </select>
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group text-right" id="aboutForm-wrapper">
+                                <label for="aboutForm">מהות התקלה</label>
+                                <textarea id="aboutForm" class="form-control" name="about" rows="3"></textarea>
                             </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group text-right" id="descriptionForm-wrapper">
+                                <label for="descriptionForm">תיאור התקלה</label>
+                                <textarea id="descriptionForm" class="form-control" name="about" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="container-fluid" id="container-wrapper-for-add-newFields">
+                            <div class="wrapper-for-add-newFields row">
+                                <div class="col-lg-9 col-12">
+                                    <div class="form-group text-right" id="partsChnage-wrapper">
+                                        <label for="partsChnage">חלקים שהוחלפו</label>
+                                        <select id="partsChnage" class="custom-select" name="partsChnage">
+                                            <option>מוצר</option>
+                                            <option>מוצר</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-12">
+                                    <div class="form-group text-right">
+                                        <label for="example-number-input" class="">כמות</label>
+                                        <input class="form-control text-center" type="number" value="1" id="number-input">
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-12"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-success" id="addNewItem">הוסיפו פריט <span><i class="fas fa-plus"></i></span></button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="goToPay" class="btn btn-primary">המשך לתשלום</button>
             </div>
         </div>
     </div>
 </div>
-
 <?php include 'inc/footer/footer.php'; ?>
 
 <script>

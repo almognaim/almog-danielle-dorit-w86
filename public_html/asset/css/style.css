@@ -3,6 +3,12 @@
     direction: rtl;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none !important;
+}
 div#clients_wrapper {
     width: 100%;
 }
