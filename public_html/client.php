@@ -272,9 +272,7 @@ $user_id = $_GET['identity_card'];
                 ?>
             </div>
         </div>
-
     </div>
-
 </main>
 
 <!-- Main End -->

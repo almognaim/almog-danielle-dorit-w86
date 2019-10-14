@@ -34,7 +34,7 @@ include 'inc/header/header.php';
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT first_name, last_name,email,phone, identity_card, adress FROM `clients`";
+                    $sql = "SELECT first_name, last_name,email,phone, identity_card, address FROM clients";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -42,7 +42,7 @@ include 'inc/header/header.php';
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr><th scope='row'>" . $row['first_name'] . "</th><td>" . $row['last_name'] . "</td><td id='identity_card'>" . $row['identity_card'] . "</td><td>" . $row['email'] . "</td>
         <td>" . $row['phone'] . "</td>
-        <td>" . $row['adress'] . "</td></tr>";
+        <td>" . $row['address'] . "</td></tr>";
                         }
                     } else {
                         echo "0 results";
