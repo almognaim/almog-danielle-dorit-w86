@@ -34,7 +34,7 @@ include 'inc/header/header.php';
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT name,quantity,price,min_quantity,vendor FROM `inventory`";
+                    $sql = "SELECT inventory.name,inventory.quantity,inventory.price,inventory.min_quantity,vendors.name as vendor FROM inventory left join vendors ON inventory.vendor = vendors.id";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {

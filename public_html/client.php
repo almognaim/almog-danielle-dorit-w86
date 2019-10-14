@@ -33,16 +33,17 @@ $user_id = $_GET['identity_card'];
     div#addFixModal .modal-dialog.modal-dialog-centered .modal-content {
         height: 90vh;
     }
-    select#selectStatus {
-    width: 100%;
-    max-width: 100%;
-}
 
-.input-group.mt-3 {
-    width: 100% max-content;
-    max-width: 100%;
-    width: 100%;
-}
+    select#selectStatus {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .input-group.mt-3 {
+        width: 100% max-content;
+        max-width: 100%;
+        width: 100%;
+    }
 </style>
 <!-- Main Start -->
 
@@ -67,7 +68,7 @@ $user_id = $_GET['identity_card'];
                 <?php
 
 
-                $sql = "SELECT * FROM `clients_car` WHERE `identity_card` = $user_id";
+                $sql = "SELECT clients_car.*,  clients.first_name, clients.last_name, clients.phone, clients.email, clients.address FROM clients_car left join clients on clients_car.identity_card = clients.identity_card WHERE clients_car.identity_card = $user_id";
                 $result = mysqli_query($conn, $sql);
 
 
@@ -84,159 +85,153 @@ $user_id = $_GET['identity_card'];
                         </nav>';
                 } else {
                     echo "אין נתונים על משתמש זה נא פנו למנהל המערכת";
-                } ?>
-
-                <?php
-                $sql = "SELECT * FROM `clients_car` WHERE `identity_card` = $user_id";
-                $result = mysqli_query($conn, $sql);
+                }
+                $result->data_seek(0);
+                // $sql = "SELECT * FROM `clients_car` WHERE `identity_card` = $user_id";
+                // $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     // output data of each row[]
                     echo ' <div class="tab-content row" id="nav-tabContent-clients" >';
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<div class="tab-pane fade" id="nav-' . $row['car_number'] . '" role="tabpanel" aria-labelledby="nav-' . $row['car_number'] . '">
-                                <div class="row">
-                                    <div class="col-md-7 col-12">
+                        $sql_fixed = "SELECT * FROM `clients_fixes` WHERE `car_number` =" . "'" . $row['car_number'] . "'";
+                        $fixes = mysqli_query($conn, $sql_fixed);
+                        // echo $sql_fixed;
+                        //car details print
+                        echo '
+                        <div class="tab-pane fade" id="nav-' . $row['car_number'] . '" role="tabpanel" aria-labelledby="nav-' . $row['car_number'] . '">
+                            <div class="row">
+                                <div class="col-md-7 col-12">
                                     <div class="row">
-                                
-                                    <div class="col-md-6 col-12">
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" aria-label="" value="' . $row['first_name'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">שם פרטי </span>
+                                        <div class="col-md-6 col-12">
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" aria-label="" value="' . $row['first_name'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">שם פרטי </span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['last_name'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">שם משפחה </span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['phone'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">טלפון</span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" aria-label="" value="' . $row['email'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">אימייל </span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['identity_card'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">מ.זהות </span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['address'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">כתובת</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['last_name'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">שם משפחה </span>
+                                        <div class="col-md-6 col-12">
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" aria-label="" value="' . $row['car_number'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">מ. רכב</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['phone'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">טלפון</span>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['manufacturer'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">יצרן</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" aria-label="" value="' . $row['email'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">אימייל </span>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['model'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">דגם</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['identity_card'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">מ.זהות </span>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" aria-label="" value="' . $row['engine'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">נפח מנוע </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['adress'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">כתובת</span>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['color'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">צבע </span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['chassis_number'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">מ.שלדה</span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['last_treatment'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">טיפול אחרון</span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <input disabled type="text" class="form-control" value="' . $row['next_treatment'] . '">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">טיפול הבא</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" aria-label="" value="' . $row['car_number'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">מ. רכב</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['manufacturer'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">יצרן</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['model'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">דגם</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" aria-label="" value="' . $row['engine'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">נפח מנוע </span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['color'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">צבע </span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['chassis_number'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">מ.שלדה</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['last_treatment'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">טיפול אחרון</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mt-3">
-                                            <input disabled type="text" class="form-control" value="' . $row['next_treatment'] . '">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">טיפול הבא</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                                    </div> 
-                        ';
-                    }
-                    echo ' <div class="col-md-5 col-12 mt-3">
-                            <h4 class="historical-fixses bg-dark text-white p-2 rounded text-center">היסטוריית תיקונים</h4>';
+                                </div>
+                                <div class="col-md-5 col-12 mt-3">
+                                    <h4 class="historical-fixses bg-dark text-white p-2 rounded text-center">היסטוריית תיקונים</h4>
+                      ';
 
-
-
-                    $sql_fixed = "SELECT * FROM `clients_fixes` WHERE `identity_card` = $user_id";
-                    $result = mysqli_query($conn, $sql_fixed);
-
-
-                    if (mysqli_num_rows($result) > 0) {
-                        // output data of each row[]
-
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            //print_r($row);
-                            echo '<div class="historical-fixed-note-wrapper text-center">
+                        //fixes print
+                        if (mysqli_num_rows($fixes) > 0) {
+                            while ($fix = mysqli_fetch_assoc($fixes)) {
+                                echo '
+                                <div class="historical-fixed-note-wrapper text-center">
                                     <div class="card text-center">
                                         <div class="card-header">
                                             <div class="row">
                                                 <div class="col-md-6 col-12">
                                                     <div class="d-flex flex-column text-right">
-                                                        <span>נפתח ע״י: ' . $row['openedBy'] . '</span>
-                                                        <span>תאריך: ' . $row['date'] . '</span>
-                                                        <span>בשעה: ' . $row['hour'] . '</span>
+                                                        <span>נפתח ע״י: ' . $fix['openedBy'] . '</span>
+                                                        <span>תאריך: ' . $fix['date'] . '</span>
+                                                        <span>בשעה: ' . $fix['hour'] . '</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="d-flex flex-row justify-content-end text-left">
                                                         <span class="ml-2"><a href="#"><i class="fas fa-pencil-alt"></i></a></span>
                                                         <span>סטטוס תיקון: ';
-                            if ($row['status'] == 'true') {
-                                echo 'בטיפול';
-                            } else {
-                                echo 'סגור';
-                            }
-                            echo '</span>
+                                                        if ($fix['status'] == 'true') {
+                                                            echo 'בטיפול';
+                                                        } else {
+                                                            echo 'סגור';
+                                                        }
+                                                        echo '</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h5 class="card-title">' . $row['fixAbout'] . '</h5>
-                                            <p class="card-text">' . $row['fixDescription'] . '
+                                            <h5 class="card-title">' . $fix['fixAbout'] . '</h5>
+                                            <p class="card-text">' . $fix['fixDescription'] . '
                                             </p>
                                             <p class="card-text">
                                                 <div class="row">
                                                     <div class="col-12 text-right">חלקים שהוחלפו</div>
-                
                                                 </div>
                                             </p>
                                         </div>
@@ -244,8 +239,28 @@ $user_id = $_GET['identity_card'];
                                     <div class="load-moe mt-2">
                                         <a class=" text-white btn btn-danger" data-toggle="modal" data-target="#addFixModal">הוסיפו תיקון</a>
                                     </div>
-                                </div>';
+                                </div>
+                            </div>
+                                ';
+                            }
+                        } else {
+                            echo ' 
+                            <div class="row">
+                               <div class="col-12 text-center">
+                                   <p class="text-center">אין נתונים על משתמש זה נא פנו למנהל המערכת</p>
+                                   <a class=" text-white btn btn-danger" data-toggle="modal" data-target="#addFixModal">הוסיפו תיקון</a>
+                               </div>
+                            </div>
+                        </div>
+                            ';
                         }
+                    echo '</div>
+                    </div>
+                    ';
+                    }
+                    echo '
+                        </div>
+                    ';
                     } else {
                         echo ' <div class="row">
                                <div class="col-12 text-center">
@@ -254,22 +269,7 @@ $user_id = $_GET['identity_card'];
                                </div>
                                </div>';
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    echo '</div>
-    </div></div></div>';
-                } ?>
+                ?>
             </div>
         </div>
 

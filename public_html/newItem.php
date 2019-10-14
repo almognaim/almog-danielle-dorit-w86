@@ -3,6 +3,7 @@ session_start();
 if( !$_SESSION['user_id'] ){
     header('location: login.php');
 }
+include 'config.php';
 include 'inc/header/header.php'; ?>
 
 <!-- Main Start -->
@@ -63,12 +64,31 @@ form#addNewItemForm label {
                                     <span class="input-group-text">כמות מינימאלית</span>
                                 </div>
                             </div>
+
                             <div class="input-group mt-4" style="direction: ltr;">
-                                <input name="vendor" type="text" class="form-control">
+                            
+                            <select name="vendor" class="form-control">
+                            <option value="">בחר ספק</option>
+                            <?php
+                                $sql = "SELECT * FROM `vendors`";
+                                $result = mysqli_query($conn, $sql);
+
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<option value='".$row['id']."' >".$row['name']."</option>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                } ?>
+                            </select>
+                            <div class="input-group-append">
+                                    <span class="input-group-text">ספק</span>
+                                </div>
+                            <!-- <input name="vendor" type="text" class="form-control">
                                 <div class="input-group-append">
                                     <span class="input-group-text">ספק</span>
                                 </div>
-                            </div>
+                            </div> -->
                             
                         </div>
                         <div class="col-md-6 col-12">
