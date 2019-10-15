@@ -41,8 +41,8 @@ include 'inc/header/header.php';
                         // output data of each row
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr><th scope='row'>" . $row['first_name'] . "</th><td>" . $row['last_name'] . "</td><td id='identity_card'>" . $row['identity_card'] . "</td><td>" . $row['email'] . "</td>
-        <td>" . $row['phone'] . "</td>
-        <td>" . $row['address'] . "</td></tr>";
+                                <td>" . $row['phone'] . "</td>
+                                <td>" . $row['address'] . "</td></tr>";
                         }
                     } else {
                         echo "0 results";

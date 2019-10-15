@@ -19,21 +19,20 @@ $chassie = $_POST['chassie'];
 $lastTreatment = $_POST['lastTreatment'];
 $nextTreatment = $_POST['nextTreatment'];
 
+    $sql = "INSERT INTO clients(first_name, last_name, phone, email, identity_card, address) VALUES ('$name', '$lastName', '$phone', '$email','$identity','$address')";
 
-                    $sql = "INSERT INTO clients_car(first_name, last_name, phone, email, identity_card, adress, car_number, manufacturer, model, engine, color,chassis_number, last_treatment, next_treatment) VALUES ('$name', '$lastName', '$phone', '$email','$identity','$address','$carNumber','$manufacture','$model','$engine','$color','$chassie','$lastTreatment','$nextTreatment' )";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    
+    $sql = "INSERT INTO clients_car(identity_card, car_number, manufacturer, model, engine, color,chassis_number, last_treatment, next_treatment) VALUES ('$identity','$carNumber','$manufacture','$model','$engine','$color','$chassie','$lastTreatment','$nextTreatment' )";
 
-                    
-                    if ($conn->query($sql) === TRUE) {
-                        echo "New record created successfully";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                    }
-                    
-                    $sql = "INSERT INTO clients(first_name, last_name, phone, email, identity_card, adress, car_number, manufacturer, model, engine, color,chassis_number, last_treatment, next_treatment) VALUES ('$name', '$lastName', '$phone', '$email','$identity','$address','$carNumber','$manufacture','$model','$engine','$color','$chassie','$lastTreatment','$nextTreatment' )";
-
-                    if ($conn->query($sql) === TRUE) {
-                        echo "New record created successfully";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                    }  
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }  
 ?>

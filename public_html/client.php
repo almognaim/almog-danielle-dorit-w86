@@ -84,7 +84,8 @@ $user_id = $_GET['identity_card'];
                     echo '</div>
                         </nav>';
                 } else {
-                    echo "אין נתונים על משתמש זה נא פנו למנהל המערכת";
+                    echo'<p class="text-center">אין נתונים על משתמש זה נא פנו למנהל המערכת</p>
+                    ';
                 }
                 $result->data_seek(0);
                 // $sql = "SELECT * FROM `clients_car` WHERE `identity_card` = $user_id";
@@ -261,14 +262,7 @@ $user_id = $_GET['identity_card'];
                     echo '
                         </div>
                     ';
-                    } else {
-                        echo ' <div class="row">
-                               <div class="col-12 text-center">
-                                   <p class="text-center">אין נתונים על משתמש זה נא פנו למנהל המערכת</p>
-                                   <a class=" text-white btn btn-danger" data-toggle="modal" data-target="#addFixModal">הוסיפו תיקון</a>
-                               </div>
-                               </div>';
-                    }
+                    } 
                 ?>
             </div>
         </div>
