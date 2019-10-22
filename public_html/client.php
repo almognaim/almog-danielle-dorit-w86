@@ -40,6 +40,9 @@ $user_id = $_GET['identity_card'];
         max-width: 100%;
         width: 100%;
     }
+    .historical-fixed-note-wrapper {
+        margin-bottom: 10px;
+    }
 </style>
 <!-- Main Start -->
 
@@ -198,14 +201,14 @@ $user_id = $_GET['identity_card'];
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="d-flex flex-row justify-content-end text-left">
-                                                        <span class="ml-2"><a href="#"><i class="fas fa-pencil-alt"></i></a></span>
+                                                        
                                                         <span>סטטוס תיקון: ';
-                                if ($fix['status'] == 'true') {
-                                    echo 'בטיפול';
-                                } else {
-                                    echo 'סגור';
-                                }
-                                echo '</span>
+                                                        if ($fix['status'] == 'open') {
+                                                            echo 'בטיפול';
+                                                        } elseif ($fix['status'] == 'closed') {
+                                                            echo 'סגור';
+                                                        }
+                                                        echo '</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,13 +224,12 @@ $user_id = $_GET['identity_card'];
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="load-moe mt-2">
-                                        <a class=" text-white btn btn-danger" data-toggle="modal" data-target="#addFixModal">הוסיפו תיקון</a>
-                                    </div>
-                                </div>
                             </div>
                                 ';
                             }
+                            echo '<div class="load-moe mt-2 text-center">
+                            <a class=" text-white btn btn-danger" data-toggle="modal" data-target="#addFixModal">הוסיפו תיקון</a>
+                        </div>';
                         } else {
                             echo ' 
                             <div class="row">
@@ -240,6 +242,7 @@ $user_id = $_GET['identity_card'];
                             ';
                         }
                         echo '</div>
+                        </div>
                     </div>
                     ';
                     }
@@ -277,8 +280,8 @@ $user_id = $_GET['identity_card'];
                             <div class="fform-group text-right">
                                 <label for="status">סטטוס</label>
                                 <select id="status" class="form-control" name="status">
-                                    <option>בטיפול</option>
-                                    <option>סגור</option>
+                                    <option value="open">בטיפול</option>
+                                    <option value="closed">סגור</option>
                                 </select>
                             </div>
                         </div>
@@ -326,7 +329,7 @@ $user_id = $_GET['identity_card'];
                         </div>
                     </div>
                     <div>
-                        <input id="addFix" class="btn btn-success" type="submit" name="addFix" value="הןסף תיקון">
+                        <input id="addFix" class="btn btn-success" type="submit" name="addFix" value="הוסף תיקון">
                     </div>
                 </form>
             </div>

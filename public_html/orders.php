@@ -71,7 +71,6 @@ include 'inc/header/header.php';
         location.href = 'order.php?id='+id;
     }
     function acceptOrder(id) {
-        console.log(id);        
         $.ajax({
                 type: "post",
                 url: "handle/acceptOrder.php",
