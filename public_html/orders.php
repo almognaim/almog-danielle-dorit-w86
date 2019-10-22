@@ -28,6 +28,7 @@ include 'inc/header/header.php';
                         <th scope="col">ספק</th>
                         <th scope="col">פריטים</th>
                         <th scope="col">סטטוס</th>
+                        <th scope="col">אשר קבלת סחורה</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,14 +42,13 @@ include 'inc/header/header.php';
                     if (mysqli_num_rows($result) > 0) {
           
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $html = "<tr onclick='redirectToOrder(".$row['id'].")'><th scope='row' >" . $row['id'] . "</th><td>" . $row['vendor'] . "</td><td>" . $row['total'] . "</td><td>";
+                            $html = "<tr><th scope='row' onclick='redirectToOrder(".$row['id'].")'>" . $row['id'] . "</th><td>" . $row['vendor'] . "</td><td>" . $row['total'] . "</td><td class='status".$row['id']."'>";
                             if ($row['status'] == 0) {
-                                $html = $html."פתוח</td></tr>";
+                                $html = $html."פתוח</td><td class='click".$row['id']."'><a class='bg-dark p-2 text-white rounded' onclick='acceptOrder(". $row['id'] .")'>אשר</a></td></tr>";
                             }else {
-                                $html = $html."נתקבל</td></tr>";
+                                $html = $html."נתקבל</td><td></td></tr>";
                             }
                             echo $html;
-     
                         }
                     } else {
                         echo "0 results";
@@ -56,7 +56,7 @@ include 'inc/header/header.php';
               
                 </tbody>
             </table>
-
+            <!-- onclick='acceptOrder(". $row['id'] .")' -->
 
         </div>
     </div>
@@ -67,7 +67,27 @@ include 'inc/header/header.php';
 
 <?php include 'inc/footer/footer.php'; ?>
 <script>
-function redirectToOrder(id) {
+    function redirectToOrder(id) {
         location.href = 'order.php?id='+id;
+    }
+    function acceptOrder(id) {
+        console.log(id);        
+        $.ajax({
+                type: "post",
+                url: "handle/acceptOrder.php",
+                data: "id="+id,
+                success: function(response) {
+                    console.log(response);
+                    
+                    Swal.fire(
+                        'סחורה התקבלה!',
+                        'מעדכן מלאי',
+                        'success'
+                    ).then(function() {
+                        $(".click"+id).html("");
+                        $(".status"+id).html("נתקבל");
+                    });
+                }
+            });
     }
 </script>

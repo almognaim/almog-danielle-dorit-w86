@@ -30,10 +30,6 @@ $user_id = $_GET['identity_card'];
         max-width: 990px;
     }
 
-    div#addFixModal .modal-dialog.modal-dialog-centered .modal-content {
-        height: 90vh;
-    }
-
     select#selectStatus {
         width: 100%;
         max-width: 100%;
@@ -63,41 +59,29 @@ $user_id = $_GET['identity_card'];
         </div>
         <div class="row">
             <div class="col-12">
-
-
                 <?php
-
-
                 $sql = "SELECT clients_car.*,  clients.first_name, clients.last_name, clients.phone, clients.email, clients.address FROM clients_car left join clients on clients_car.identity_card = clients.identity_card WHERE clients_car.identity_card = $user_id";
                 $result = mysqli_query($conn, $sql);
 
-
                 if (mysqli_num_rows($result) > 0) {
-                    // output data of each row[]
                     echo ' <nav>
                         <div class="nav nav-tabs row" id="nav-tab" role="tablist">';
                     while ($row = mysqli_fetch_assoc($result)) {
-                        //print_r($row);
                         echo '
                                 <a class="nav-item nav-link" id="nav-' . $row['car_number'] . '-tab" data-toggle="tab" href="#nav-' . $row['car_number'] . '" role="tab" aria-controls="nav-' . $row['car_number'] . '" aria-selected="true">' . $row['car_number'] . '</a>';
                     }
                     echo '</div>
                         </nav>';
                 } else {
-                    echo'<p class="text-center">אין נתונים על משתמש זה נא פנו למנהל המערכת</p>
+                    echo '<p class="text-center">אין נתונים על משתמש זה נא פנו למנהל המערכת</p>
                     ';
                 }
                 $result->data_seek(0);
-                // $sql = "SELECT * FROM `clients_car` WHERE `identity_card` = $user_id";
-                // $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
-                    // output data of each row[]
                     echo ' <div class="tab-content row" id="nav-tabContent-clients" >';
                     while ($row = mysqli_fetch_assoc($result)) {
                         $sql_fixed = "SELECT * FROM `clients_fixes` WHERE `car_number` =" . "'" . $row['car_number'] . "'";
                         $fixes = mysqli_query($conn, $sql_fixed);
-                        // echo $sql_fixed;
-                        //car details print
                         echo '
                         <div class="tab-pane fade" id="nav-' . $row['car_number'] . '" role="tabpanel" aria-labelledby="nav-' . $row['car_number'] . '">
                             <div class="row">
@@ -216,12 +200,12 @@ $user_id = $_GET['identity_card'];
                                                     <div class="d-flex flex-row justify-content-end text-left">
                                                         <span class="ml-2"><a href="#"><i class="fas fa-pencil-alt"></i></a></span>
                                                         <span>סטטוס תיקון: ';
-                                                        if ($fix['status'] == 'true') {
-                                                            echo 'בטיפול';
-                                                        } else {
-                                                            echo 'סגור';
-                                                        }
-                                                        echo '</span>
+                                if ($fix['status'] == 'true') {
+                                    echo 'בטיפול';
+                                } else {
+                                    echo 'סגור';
+                                }
+                                echo '</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,14 +239,14 @@ $user_id = $_GET['identity_card'];
                         </div>
                             ';
                         }
-                    echo '</div>
+                        echo '</div>
                     </div>
                     ';
                     }
                     echo '
                         </div>
                     ';
-                    } 
+                }
                 ?>
             </div>
         </div>
@@ -281,66 +265,70 @@ $user_id = $_GET['identity_card'];
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post">
+                <form method="post" id="addFixForm">
                     <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <div class="input-group mt-3" style="direction: ltr;">
-                                <input type="text" class="form-control" aria-label="" value="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">שם לקוח </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="input-group mt-3">
-                                <div class="form-group">
-                                    <select id="selectStatus" class="form-control" name="selectStatus">
-                                        <option>בטיפול</option>
-                                        <option>סגור</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
+                        <div class="col-lg-9">
                             <div class="form-group text-right" id="aboutForm-wrapper">
-                                <label for="aboutForm">מהות התקלה</label>
-                                <textarea id="aboutForm" class="form-control" name="about" rows="3"></textarea>
+                                <label for="fixAbout">מהות התקלה</label>
+                                <textarea id="fixAbout" class="form-control" name="fixAbout" rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-3 col-3">
+                            <div class="fform-group text-right">
+                                <label for="status">סטטוס</label>
+                                <select id="status" class="form-control" name="status">
+                                    <option>בטיפול</option>
+                                    <option>סגור</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
                             <div class="form-group text-right" id="descriptionForm-wrapper">
-                                <label for="descriptionForm">תיאור התקלה</label>
-                                <textarea id="descriptionForm" class="form-control" name="about" rows="3"></textarea>
+                                <label for="fixDescription">תיאור התקלה</label>
+                                <textarea id="fixDescription" class="form-control" name="fixDescription" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="container-fluid" id="container-wrapper-for-add-newFields">
                             <div class="wrapper-for-add-newFields row">
                                 <div class="col-lg-9 col-12">
                                     <div class="form-group text-right" id="partsChnage-wrapper">
-                                        <label for="partsChnage">חלקים שהוחלפו</label>
-                                        <select id="partsChnage" class="custom-select" name="partsChnage">
-                                            <option>מוצר</option>
-                                            <option>מוצר</option>
+                                        <label for="item0">חלקים שהוחלפו</label>
+                                        <select name="item0" id="item0" class="custom-select" name="item0">
+                                            <option value="">בחר מוצר</option>
+                                            <?php
+                                            $sql = "SELECT * FROM `inventory`";
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if (mysqli_num_rows($result) > 0) {
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>";
+                                                }
+                                            } else {
+                                                echo "0 results";
+                                            } ?>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 col-12">
+                                <div class="col-lg-1 col-12">
                                     <div class="form-group text-right">
                                         <label for="example-number-input" class="">כמות</label>
                                         <input class="form-control text-center" type="number" value="1" id="number-input">
                                     </div>
                                 </div>
-                                <div class="col-lg-1 col-12"></div>
+
+                            </div>
+                            <div id="items-inputs">
+
                             </div>
                         </div>
                         <div class="col-12 text-center">
-                            <button class="btn btn-success" id="addNewItem">הוסיפו פריט <span><i class="fas fa-plus"></i></span></button>
+                            <div onclick="addItem()" class="btn btn-success" id="addNewItem">הוסיפו פריט <span><i class="fas fa-plus"></i></span></div>
                         </div>
                     </div>
+                    <div>
+                        <input id="addFix" class="btn btn-success" type="submit" name="addFix" value="הןסף תיקון">
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="goToPay" class="btn btn-primary">המשך לתשלום</button>
             </div>
         </div>
     </div>
@@ -351,4 +339,103 @@ $user_id = $_GET['identity_card'];
     $("div#nav-tab a:first").addClass("active");
     $("div#nav-tabContent-clients div:first").addClass("active");
     $("div#nav-tabContent-clients div:first").addClass("show");
+
+    var itemsArray = [];
+    var inputIndex = 0;
+
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "handle/getItems.php",
+            success: function(result) {
+                itemsArray = JSON.parse(result);
+            }
+        });
+        
+        $('#addFixForm').submit(function(e){
+            e.preventDefault();
+
+            var datastring = $("#addFixForm").serialize();
+            console.log(datastring);
+            
+            $.ajax({
+                type: "post",
+                url: "handle/addFix.php",
+                data: datastring,
+                success: function(response) {
+                    Swal.fire(
+                        'משתמש חדש נוצר!',
+                        'אתם מועברים לדף לקוחות',
+                        'success'
+                    ).then(function() {
+                        // window.location = "clients.php";
+                    });
+                }
+            })
+        })
+    })
+
+    function addItem() {
+        inputIndex++
+        $(".remove-button").remove()
+        var html = `
+            <div class="wrapper-for-add-newFields row input` + inputIndex + ` ">
+                <div class="col-lg-9 col-12">
+                    <div class="form-group text-right" id="partsChnage-wrapper">
+                        <select name="item` + inputIndex + `" id="item` + inputIndex + `" class="custom-select">
+                            <option value="">בחר מוצר</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-12">
+                    <div class="form-group text-right">
+                        <input class="form-control text-center" type="number" name="quantity"` + inputIndex + ` value="1" min="1">
+                    </div>
+                </div>
+                <div class="col-lg-1 col-12 remove-button">
+                    <div class="form-group text-right">
+                        <div class="btn btn-danger" style="font-weight: bold;" onclick="removeInput(` + inputIndex + `)">X</div> 
+                    </div>
+                </div>
+            </div>
+            `
+        $("#items-inputs").append(html)
+        itemsArray.forEach(function(element, i) {
+            $("#item" + inputIndex)
+                .append($("<option></option>")
+                    .attr("value", element.id)
+                    .text(element.name))
+        })
+    }
+
+    function removeInput(id) {
+        $(".input" + id).remove();
+        inputIndex--
+        $(".input" + inputIndex).append(`<div class="col-lg-1 col-12 remove-button">
+                    <div class="form-group text-right">
+                        <div class="btn btn-danger" style="font-weight: bold;" onclick="removeInput(` + inputIndex + `)">X</div> 
+                    </div>
+                </div>`)
+    }
+
+    // $('#addFixForm').submit(function(e){
+    //     e.preventDefault();
+
+    //     var datastring = $("#addFixForm").serialize();
+
+    //     $.ajax({
+    //         type: "post",
+    //         url: "handle/addFix.php",
+    //         data: datastring,
+    //         success: function(response) {
+    //             Swal.fire(
+    //                 'משתמש חדש נוצר!',
+    //                 'אתם מועברים לדף לקוחות',
+    //                 'success'
+    //             ).then(function() {
+    //                 window.location = "clients.php";
+    //             });
+    //         }
+    //     })
+    // })
 </script>

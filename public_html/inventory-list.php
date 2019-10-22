@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'config.php';
-include 'inc/header/header.php'; 
+include 'inc/header/header.php';
 ?>
 
 
@@ -29,25 +29,32 @@ include 'inc/header/header.php';
                         <th scope="col">מחיר ליחידה כולל מע"מ</th>
                         <th scope="col">כמות מינימאלית במלאי</th>
                         <th scope="col">ספק</th>
-                       
+
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT inventory.name,inventory.quantity,inventory.price,inventory.min_quantity,vendors.name as vendor FROM inventory left join vendors ON inventory.vendor = vendors.id";
+                    $sql = "
+                        SELECT  
+                        inventory.name, inventory.price, inventory.min_quantity, vendors.name AS vendor,
+                        Sum(inventory.quantity + ( CASE  WHEN item.quan IS NULL THEN 0 ELSE item.quan end )) AS quantity  
+                        FROM   inventory 
+                        LEFT JOIN vendors ON inventory.vendor = vendors.id 
+                        LEFT JOIN (SELECT item_id, Sum(quantity) AS quan FROM `order_items` WHERE received = 1 GROUP  BY item_id) AS item ON inventory.id = item.item_id 
+                        GROUP  BY inventory.id 
+                    ";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
-          
+
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr><th scope='row'>" . $row['name'] . "</th><td>" . $row['quantity'] . "</td><td id='identity_card'>" . $row['price'] . "</td><td>" . $row['min_quantity'] . "</td>
-        <td>" . $row['vendor'] . "</td></tr>";
-     
+                                <td>" . $row['vendor'] . "</td></tr>";
                         }
                     } else {
                         echo "0 results";
                     } ?>
-              
+
                 </tbody>
             </table>
 

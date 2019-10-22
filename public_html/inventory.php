@@ -49,7 +49,7 @@ include 'inc/header/header.php'; ?>
         </div>
         <div class="col-md-6 col-12">
           <div class="box-part text-center">
-            <a href="employee.php">
+            <a href="orders.php">
               <i class="fas fa-people-carry"></i>
               <div class="title">
                 <h4>קליטת סחורה</h4>

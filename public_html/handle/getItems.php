@@ -1,10 +1,7 @@
 <?php
 include '../config.php';
 
-
-$vendorId = $_POST['vendorId'];
-
-$sql = "SELECT * FROM `inventory` WHERE vendor = ". $vendorId;
+$sql = "SELECT * FROM `inventory`";
 // echo $sql;
 $result = mysqli_query($conn, $sql);
 

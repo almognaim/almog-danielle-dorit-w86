@@ -29,3 +29,4 @@ if ( isset($_POST['clockEnterIn']) ) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+?>

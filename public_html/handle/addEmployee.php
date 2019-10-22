@@ -18,18 +18,9 @@
 
     $sql = "INSERT INTO workers(username, password, fullname, phone, email, seniority, identity_card, address, startDate, speciality, admin) VALUES ('$username', '$password', '$fullname', '$phone', '$email', '$senoirity', '$identity_card', '$address', '$startDate', '$speciality', '$admin')";
 
-
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-                    
-                    // $sql = "INSERT INTO clients(first_name, last_name, phone, email, identity_card, adress, car_number, manufacturer, model, engine, color,chassis_number, last_treatment, next_treatment) VALUES ('$name', '$lastName', '$phone', '$email','$identity','$address','$carNumber','$manufacture','$model','$engine','$color','$chassie','$lastTreatment','$nextTreatment' )";
-
-                    // if ($conn->query($sql) === TRUE) {
-                    //     echo "New record created successfully";
-                    // } else {
-                    //     echo "Error: " . $sql . "<br>" . $conn->error;
-                    // }  
 ?>
