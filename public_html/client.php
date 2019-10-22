@@ -312,7 +312,7 @@ $user_id = $_GET['identity_card'];
                                 <div class="col-lg-1 col-12">
                                     <div class="form-group text-right">
                                         <label for="example-number-input" class="">כמות</label>
-                                        <input class="form-control text-center" type="number" value="1" id="number-input">
+                                        <input class="form-control text-center" name="quantity0" type="number" value="1" id="number-input">
                                     </div>
                                 </div>
 
@@ -356,6 +356,7 @@ $user_id = $_GET['identity_card'];
             e.preventDefault();
 
             var datastring = $("#addFixForm").serialize();
+            datastring = datastring + "&car_number=" + $(".nav-item.active").html()+ "&itemsTotal="+(inputIndex+1);
             console.log(datastring);
             
             $.ajax({
@@ -389,7 +390,7 @@ $user_id = $_GET['identity_card'];
                 </div>
                 <div class="col-lg-1 col-12">
                     <div class="form-group text-right">
-                        <input class="form-control text-center" type="number" name="quantity"` + inputIndex + ` value="1" min="1">
+                        <input class="form-control text-center" type="number" name="quantity` + inputIndex + `" value="1" min="1">
                     </div>
                 </div>
                 <div class="col-lg-1 col-12 remove-button">
@@ -417,25 +418,4 @@ $user_id = $_GET['identity_card'];
                     </div>
                 </div>`)
     }
-
-    // $('#addFixForm').submit(function(e){
-    //     e.preventDefault();
-
-    //     var datastring = $("#addFixForm").serialize();
-
-    //     $.ajax({
-    //         type: "post",
-    //         url: "handle/addFix.php",
-    //         data: datastring,
-    //         success: function(response) {
-    //             Swal.fire(
-    //                 'משתמש חדש נוצר!',
-    //                 'אתם מועברים לדף לקוחות',
-    //                 'success'
-    //             ).then(function() {
-    //                 window.location = "clients.php";
-    //             });
-    //         }
-    //     })
-    // })
 </script>
