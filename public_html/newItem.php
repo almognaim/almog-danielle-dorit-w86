@@ -42,19 +42,19 @@ form#addNewItemForm label {
                             
                                 <input id="first_name" type="text" class="form-control" name="name">
                                 <div class="input-group-append">
-                                    <span class="input-group-text">שם פריט *</span>
+                                    <span class="input-group-text">שם פריט </span>
                                 </div>
                             </div> 
                             <div class="input-group mt-4" style="direction: ltr;">
                                 <input name="quantity" type="number" class="form-control">
                                 <div class="input-group-append">
-                                    <span class="input-group-text">*כמות</span>
+                                    <span class="input-group-text">כמות</span>
                                 </div>
                             </div>
                             <div class="input-group mt-4" style="direction: ltr;">
                                 <input name="price" type="number" class="form-control">
                                 <div class="input-group-append">
-                                    <span class="input-group-text">מחיר ליחידה בש"ח כולל מע"מ *</span>
+                                    <span class="input-group-text">מחיר ליחידה בש"ח כולל מע"מ </span>
                                 </div>
                             </div>
                             <div class="input-group mt-4" style="direction: ltr;">
@@ -69,16 +69,10 @@ form#addNewItemForm label {
                                     <span class="input-group-text">ספק</span>
                                 </div>
                             </div>
-                            
                         </div>
-                        <div class="col-md-6 col-12">
-
-
-                        
-                            <div class="form-group mt-4">
+                  
                                 <input id="addNewClient" class="form-control btn btn-success" type="submit" name="addNewClient" value="הוספת פריט חדש">
-                            </div>
-                        </div>
+                           
                     </form>
                 </div>
             </div>

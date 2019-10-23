@@ -29,20 +29,22 @@ include 'inc/header/header.php';
                         <th scope="col">מחיר ליחידה כולל מע"מ</th>
                         <th scope="col">כמות מינימאלית במלאי</th>
                         <th scope="col">ספק</th>
+                        <th scope="col"></th>
+
                        
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT name,quantity,price,min_quantity,vendor FROM `inventory`";
+                    $sql = "SELECT * FROM `inventory`";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
           
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr><th scope='row'>" . $row['name'] . "</th><td>" . $row['quantity'] . "</td><td id='identity_card'>" . $row['price'] . "</td><td>" . $row['min_quantity'] . "</td>
-        <td>" . $row['vendor'] . "</td></tr>";
-     
+        <td>" . $row['vendor'] . "</td><td><div ><a href='/item.php?id=".$row['id']."'>עריכה</a></div></td></tr>";
+                            
                         }
                     } else {
                         echo "0 results";

@@ -9,9 +9,6 @@ $minquantity = $_POST['minquantity'];
 $vendor = $_POST['vendor'];
 
 
-
-
-
 $sql = "INSERT INTO `inventory`( `name`, `quantity`, `price`, `min_quantity`, `vendor`) 
                      VALUES ('$name',$quantity,$price,$minquantity,'$vendor')";
 
