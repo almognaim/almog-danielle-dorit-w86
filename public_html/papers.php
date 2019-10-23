@@ -36,7 +36,7 @@ include 'inc/header/header.php';
                             $fix = "<tr><th scope='row'>" . $row['openedBy'] . "</th><td>" . $row['date'] . "</td><td>" . $row['car_number'] . "</td><td>" . $row['fixAbout'] . "</td>
                                 <td>" . $row['fixDescription'] . "</td> <td class='status".$row['id']."'>";
                                 if ($row['status'] == 'paid') {
-                                    $fix = $fix . 'סגור</td></tr>';
+                                    $fix = $fix . '<a class="bg-dark p-2 text-white rounded" onclick="payFix('. $row['id'] .')">צפה</a></td></tr>';
                                 } elseif($row['status'] == 'open') {
                                     $fix = $fix . '<a class="bg-dark p-2 text-white rounded" onclick="closeFix('. $row['id'] .')">סגור</a></td></tr>';
                                 }else {

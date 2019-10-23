@@ -57,7 +57,7 @@ $user_id = $_GET['identity_card'];
         <div class="row" id="newclientBtn">
             <div class="col-12 text-right">
                 <a class="btn btn-danger" href="client.php?identity_card=<?php echo $user_id; ?>">פרטי לקוח</a>
-                <a class="btn btn-danger" href="newClient.php">חשבוניות</a>
+                <a class="btn btn-danger" href="reciepts.php?identity_card=<?php echo $user_id; ?>">חשבוניות</a>
             </div>
         </div>
         <div class="row">
