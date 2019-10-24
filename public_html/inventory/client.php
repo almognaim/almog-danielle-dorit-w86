@@ -283,7 +283,7 @@ $user_id = $_GET['identity_card'];
                         </div>
                         <div class="col-12">
                             <div class="form-group text-right" id="descriptionForm-wrapper">
-                                <label for="descriptionForm">תיאור התקלה</label>
+                                <label for="descriptionForm">מה בוצע</label>
                                 <textarea id="descriptionForm" class="form-control" name="about" rows="3"></textarea>
                             </div>
                         </div>

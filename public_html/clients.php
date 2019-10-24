@@ -63,6 +63,7 @@ include 'inc/header/header.php';
 <script>
     $('#clients tr').click(function(){
         var identity_card = $( this ).find( '#identity_card' ).text();
+        if (identity_card.length < 1) return;
         var data = identity_card;
         $.ajax({
             type: "GET",

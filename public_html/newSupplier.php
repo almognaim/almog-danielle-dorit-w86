@@ -121,8 +121,8 @@ include 'inc/header/header.php'; ?>
                 success: function(response) {
                     console.log(response);
                     Swal.fire(
-                        'משתמש חדש נוצר!',
-                        'אתם מועברים לדף לקוחות',
+                        'ספק חדש נוצר!',
+                        'אתם מועברים לדף לספקים',
                         'success'
                     ).then(function() {
                          window.location = "suppliers.php";

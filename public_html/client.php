@@ -217,11 +217,6 @@ $user_id = $_GET['identity_card'];
                                             <h5 class="card-title">' . $fix['fixAbout'] . '</h5>
                                             <p class="card-text">' . $fix['fixDescription'] . '
                                             </p>
-                                            <p class="card-text">
-                                                <div class="row">
-                                                    <div class="col-12 text-right">חלקים שהוחלפו</div>
-                                                </div>
-                                            </p>
                                         </div>
                                     </div>
                             </div>
@@ -287,39 +282,12 @@ $user_id = $_GET['identity_card'];
                         </div>
                         <div class="col-lg-9">
                             <div class="form-group text-right" id="descriptionForm-wrapper">
-                                <label for="fixDescription">תיאור התקלה</label>
+                                <label for="fixDescription">מה בוצע</label>
                                 <textarea id="fixDescription" class="form-control" name="fixDescription" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="container-fluid" id="container-wrapper-for-add-newFields">
-                            <div class="wrapper-for-add-newFields row">
-                                <div class="col-lg-9 col-12">
-                                    <div class="form-group text-right" id="partsChnage-wrapper">
-                                        <label for="item0">חלקים שהוחלפו</label>
-                                        <select name="item0" id="item0" class="custom-select" name="item0">
-                                            <option value="">בחר מוצר</option>
-                                            <?php
-                                            $sql = "SELECT * FROM `inventory`";
-                                            $result = mysqli_query($conn, $sql);
-
-                                            if (mysqli_num_rows($result) > 0) {
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>";
-                                                }
-                                            } else {
-                                                echo "0 results";
-                                            } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 col-12">
-                                    <div class="form-group text-right">
-                                        <label for="example-number-input" class="">כמות</label>
-                                        <input class="form-control text-center" name="quantity0" type="number" value="1" id="number-input">
-                                    </div>
-                                </div>
-
-                            </div>
+                           
                             <div id="items-inputs">
 
                             </div>
@@ -359,7 +327,7 @@ $user_id = $_GET['identity_card'];
             e.preventDefault();
 
             var datastring = $("#addFixForm").serialize();
-            datastring = datastring + "&car_number=" + $(".nav-item.active").html()+ "&itemsTotal="+(inputIndex+1);
+            datastring = datastring + "&car_number=" + $(".nav-item.active").html()+ "&itemsTotal="+(inputIndex)+"&identity_card="+<?php echo $user_id;?>;
             console.log(datastring);
             
             $.ajax({
@@ -368,11 +336,11 @@ $user_id = $_GET['identity_card'];
                 data: datastring,
                 success: function(response) {
                     Swal.fire(
-                        'משתמש חדש נוצר!',
-                        'אתם מועברים לדף לקוחות',
+                        'תיקון נוסף!',
+                        'אתם מועברים לדף לקוח',
                         'success'
                     ).then(function() {
-                        // window.location = "clients.php";
+                        window.location = "client.php?identity_card="+<?php echo $user_id;?>;
                     });
                 }
             })
@@ -380,7 +348,7 @@ $user_id = $_GET['identity_card'];
     })
 
     function addItem() {
-        inputIndex++
+        
         $(".remove-button").remove()
         var html = `
             <div class="wrapper-for-add-newFields row input` + inputIndex + ` ">
@@ -410,6 +378,7 @@ $user_id = $_GET['identity_card'];
                     .attr("value", element.id)
                     .text(element.name))
         })
+        inputIndex++
     }
 
     function removeInput(id) {

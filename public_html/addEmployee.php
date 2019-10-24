@@ -69,8 +69,12 @@ include 'inc/header/header.php'; ?>
                                 </div>
                             </div>
                             <div class="input-group mt-4" style="direction: ltr;">
-                                <input id="admin" type="checkbox" class="form-control" name="admin">
-                                <div class="input-group-append">
+                                <!-- <input id="admin" type="checkbox" class="form-control" name="admin"> -->
+                                <input id="admin" type="radio" style="order: initial;" class="form-control" name="admin" value="1">
+                                <span> כן</span>
+                                <input id="admin" type="radio" style="order: initial;" class="form-control" name="admin" value="0"> 
+                                <span>לא</span>
+                                <div class="input-group-append" style="margin-left: 14px;">
                                     <span class="input-group-text">אדמין</span>
                                 </div>
                             </div>
@@ -89,12 +93,6 @@ include 'inc/header/header.php'; ?>
                                 </div>
                             </div>
                             <div class="input-group mt-4" style="direction: ltr;">
-                                <input id="seniority" type="text" class="form-control" name="seniority">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">בכירות</span>
-                                </div>
-                            </div>
-                            <div class="input-group mt-4" style="direction: ltr;">
                                 <input id="address" type="text" class="form-control" name="address">
                                 <div class="input-group-append">
                                     <span class="input-group-text">כתובת</span>
@@ -107,7 +105,7 @@ include 'inc/header/header.php'; ?>
                                 </div>
                             </div>
                             <div class="form-group mt-4">
-                                <input id="addNewClient" class="form-control btn btn-success" type="submit" name="addNewClient" value="הוספת לקוח חדש">
+                                <input id="addNewClient" class="form-control btn btn-success" type="submit" name="addNewClient" value="הוספת עובד חדש">
                             </div>
                         </div>
                     </form>
@@ -122,6 +120,10 @@ include 'inc/header/header.php'; ?>
 <?php include 'inc/footer/footer.php'; ?>
 
 <script>
+    $('#admin').on('change', function(){
+   this.value = this.checked ? 1 : 0;
+   // alert(this.value);
+}).change();
     $("#addNewWorkerForm").validate({
         rules: {
             username: {
@@ -140,7 +142,7 @@ include 'inc/header/header.php'; ?>
                 required: true
             },
             seniority: {
-                required: true
+                required: false
             },
             identity_card: {
                 required: true
@@ -174,9 +176,6 @@ include 'inc/header/header.php'; ?>
             email: {
                 required: 'אנא רשמו כתובת מייל תקינה'
             },
-            seniority: {
-                // required: true
-            },
             identity_card: {
                 required: 'אנא רשמו תעודת זהות תקינה'
             },
@@ -190,7 +189,7 @@ include 'inc/header/header.php'; ?>
                 required: 'אנא רשמו תחום מומחיות'
             },
             admin: {
-                // required: 'אנא רשמו תעודת זהות תקינה'
+                required: 'אנא בחרו אפשרות'
             }
         },
         submitHandler: function(form) {
@@ -207,10 +206,10 @@ include 'inc/header/header.php'; ?>
                     
                     Swal.fire(
                         'משתמש חדש נוצר!',
-                        'אתם מועברים לדף לקוחות',
+                        'אתם מועברים לרשימת עובדים',
                         'success'
                     ).then(function() {
-                        // window.location = "employee.php";
+                        window.location = "employee.php";
                     });
                 }
 

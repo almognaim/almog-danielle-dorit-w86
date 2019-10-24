@@ -42,7 +42,6 @@ include 'inc/header/header.php'; ?>
                 <tr>
                     <th scope="col">שם עובד</th>
                     <th scope="col">ת.זהות</th>
-                    <th scope="col">ותק</th>
                     <th scope="col">טלפון</th>
                     <th scope="col">קבצים מצורפים</th>
                 </tr>
@@ -52,7 +51,7 @@ include 'inc/header/header.php'; ?>
 
                 <?php
 
-                $sql = "SELECT fullName, phone , identity_card, seniority FROM `workers`";
+                $sql = "SELECT fullName, phone , identity_card FROM `workers`";
                 $result = mysqli_query($conn, $sql);
 
                 if (mysqli_num_rows($result) > 0) {
@@ -62,7 +61,6 @@ include 'inc/header/header.php'; ?>
                     while ($row = mysqli_fetch_assoc($result)) {
 
                         echo "<tr><th scope='row'>" . $row['fullName'] . "</th><td>" . $row['identity_card'] . "</td>
-                        <td>" . $row['seniority'] . "</td>
                         <td>" . $row['phone'] . "</td>
                         <td><a class='bg-dark p-2 text-white rounded' href='emploeyeeFiles.php?user_id=" . $row['identity_card'] . "'>חוזי העסקה <i class='fas fa-arrow-left'></i></a></td>
                         </tr>";

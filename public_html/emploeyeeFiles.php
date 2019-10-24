@@ -23,7 +23,6 @@ $user_id = $_GET['user_id'];
             </div>
     <div class="row">
          <div class="col-12">
-             <h2><?php echo $error; ?></h2>
                 <form class="bg-danger text-center text-white  p-3" action="upload.php?user_id=<?php echo $user_id; ?>" method="post" enctype="multipart/form-data">
                     <label class="d-block text-center text-white" for="">בחרו חוזה העסקה לעלות</label>
                     <input type="file" name="fileToUpload" id="fileToUpload">

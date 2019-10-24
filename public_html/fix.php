@@ -88,7 +88,7 @@ $fixId = $_GET['id'];
                         if ($key == 'fixAbout') {
                             $html = $html . 'מהות התקלה';
                         } else {
-                            $html = $html . 'תיאור התקלה';
+                            $html = $html . 'מה בוצע';
                         };
                         $html = $html . '
                                             </span>

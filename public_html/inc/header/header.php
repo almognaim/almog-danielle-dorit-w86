@@ -80,7 +80,7 @@
                             <li class="sidebar-dropdown">
                                 <a href="papers.php">
                                     <i class="far fa-file-alt"></i>
-                                    <span>דוחות ומסמכים</span>
+                                    <span>דוחות</span>
 
                                 </a>
                             </li>

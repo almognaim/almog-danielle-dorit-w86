@@ -151,7 +151,7 @@ include 'inc/header/header.php'; ?>
                 success: function(response) {
 
                     Swal.fire(
-                        'הזמנה חדשה נוצר!',
+                        'הזמנה חדשה נשלחה!',
                         'אתם מועברים לרשימת ההזמנות',
                         'success'
                     ).then(function() {
