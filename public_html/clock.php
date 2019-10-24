@@ -8,29 +8,34 @@ include 'inc/header/header.php';
 $user_id = $_SESSION['user_id'];
 // check if worker's clock is in 0 or 1
 
-$sqlFirst = "SELECT MAX(id) FROM clock WHERE identity_card = '$user_id'";
+$sqlFirst = "SELECT MAX(id) FROM clock WHERE identity_card = '$user_id' having max(id) is not null";
 
 $sqlFirstResult = mysqli_query($conn, $sqlFirst);
-
-foreach ($sqlFirstResult as $e) {
-    $maxId =  $e['MAX(id)'];
-
-    $sqlCheckStatus = "SELECT status FROM clock WHERE id = '$maxId'";
-    $sqlCheckResult = mysqli_query($conn, $sqlCheckStatus);
-    foreach ($sqlCheckResult as $c) {
-
-
-        switch ($c['status']) {
-            case '1':
-                $logBtn = '  <input id="clockEnterIn" name="clockEnterIn" class="btn btn-success" type="submit" value="כניסה">';
-                break;
-            case '0':
-                $logBtn = '<input id="clockEnterOut" name="clockEnterOut" class="btn btn-danger" type="submit" value="יציאה">';
-                break;
-            default:
-                $logBtn = '  <input id="clockEnterIn" name="clockEnterIn" class="btn btn-success" type="submit" value="כניסה">';
-        }
-    };
+    
+if (mysqli_num_rows($sqlFirstResult) > 0) {
+    foreach ($sqlFirstResult as $e) {
+        $maxId =  $e['MAX(id)'];
+    
+        $sqlCheckStatus = "SELECT status FROM clock WHERE id = '$maxId'";
+        $sqlCheckResult = mysqli_query($conn, $sqlCheckStatus);
+        foreach ($sqlCheckResult as $c) {
+    
+    
+            switch ($c['status']) {
+                case '1':
+                    $logBtn = '  <input id="clockEnterIn" name="clockEnterIn" class="btn btn-success" type="submit" value="כניסה">';
+                    break;
+                case '0':
+                    $logBtn = '<input id="clockEnterOut" name="clockEnterOut" class="btn btn-danger" type="submit" value="יציאה">';
+                    break;
+                default:
+                    $logBtn = '  <input id="clockEnterIn" name="clockEnterIn" class="btn btn-success" type="submit" value="כניסה">';
+            }
+        };
+    }
+    
+}else {
+    $logBtn = '  <input id="clockEnterIn" name="clockEnterIn" class="btn btn-success" type="submit" value="כניסה">';
 }
 
 
@@ -45,7 +50,7 @@ if (isset($_POST['clockEnterIn'])) {
     $fullName = $_SESSION['fullName'];
     $timestamp = $_POST['timestamp'];
     echo $timestamp;
-    $sql_ENterIn = "INSERT INTO clock(fullName, identity_card, loginHour, logInDate, status) VALUES ('$fullName','$user_id','$timestamp','','0')";
+    $sql_ENterIn = "INSERT INTO clock(fullName, identity_card, loginHour, status) VALUES ('$fullName','$user_id', CURRENT_TIMESTAMP(),'0')";
     mysqli_query($conn, $sql_ENterIn);
 
     $logBtn = '<input id="clockEnterOut" name="clockEnterOut" class="btn btn-danger" type="submit" value="יציאה">';
@@ -59,7 +64,7 @@ if (isset($_POST['clockEnterOut'])) {
     $timestamp = $_POST['timestamp'];
     echo $timestamp;
     $sql_Out = "UPDATE clock
-        SET logoutHour = '$timestamp', status= '1'
+        SET logoutHour = CURRENT_TIMESTAMP(), status= '1'
         WHERE identity_card = $user_id AND status = '0'";
     mysqli_query($conn, $sql_Out);
 

@@ -3,12 +3,6 @@
     direction: rtl;
 }
 
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none !important;
-}
 div#clients_wrapper {
     width: 100%;
 }
@@ -30,10 +24,15 @@ div#newclientBtn .col-12 {
     height: 100vh;
 }
 
-.login-page#login-wrapper .row {height: 100%;display: flex;align-items: center;}
+.login-page#login-wrapper .row {display: flex;align-items: center;}
 .login-page#login-wrapper .row .col-12 .container {
     max-width: 500px;
-    background: rgba(0,0,0,0.5);
+    background: #fff;
+    border-radius: 30px;
+}
+
+.login-page#login-wrapper .row {
+    width: 100%;
 }
 
 .login-page#login-wrapper .row .col-12 form .form-group label {
@@ -74,6 +73,15 @@ body.header-login {
 }
 
 
+.login-page#login-wrapper {
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
 nav#first-navbar {
     padding-top: 0;
     padding-bottom: 0;

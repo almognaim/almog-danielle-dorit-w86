@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha256-Y1rRlwTzT5K5hhCBfAFWABD4cU13QGuRN6P5apfWzVs=" crossorigin="anonymous"></script>
     <!-- Main Javascript File -->
-    <script src="https://daniellebn.mtacloud.co.il/asset/js/main.js"></script>
+    <script src="asset/js/main.js"></script>
     <!-- Scripts End -->
 <script>
 // $(document).ready(function() {

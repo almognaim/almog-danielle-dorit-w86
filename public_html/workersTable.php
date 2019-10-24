@@ -30,9 +30,9 @@ include 'inc/header/header.php'; ?>
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">שם עובד</th>
-                    <th scope="col">ת.זהות</th>
-                    <th scope="col">ותק</th>
-                    
+                    <th scope="col">כניסה</th>
+                    <th scope="col">יציאה</th>
+                    <th scope="col">זמן סה"כ</th>
                 </tr>
             </thead>
 
@@ -40,7 +40,7 @@ include 'inc/header/header.php'; ?>
 
                 <?php
 
-                $sql = "SELECT fullName, loginHour, logoutHour FROM clock";
+                $sql = "SELECT fullName, loginHour, logoutHour, TIMESTAMPDIFF(minute, loginHour, logoutHour) as diff FROM clock";
                 $result = mysqli_query($conn, $sql);
 
                 if (mysqli_num_rows($result) > 0) {
@@ -48,9 +48,8 @@ include 'inc/header/header.php'; ?>
                     // output data of each row
 
                     while ($row = mysqli_fetch_assoc($result)) {
-
                         echo "<tr><th scope='row'>" . $row['fullName'] . "</th><td>" . $row['loginHour'] . "</td>
-                        <td>" . $row['logoutHour'] . "</td>
+                        <td>" . $row['logoutHour'] . "</td><td>" .intdiv($row['diff'], 60).":". ($row['diff'] % 60) . "</td>
                         
                         </tr>";
 
