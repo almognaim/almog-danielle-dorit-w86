@@ -132,7 +132,7 @@ var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
 document.getElementById('current-date').innerHTML = today;
 
-/* showing the time */
-var todayDate = new Date();
-var theDate = todayDate.toLocaleTimeString();
-document.getElementById('current-time').innerHTML = theDate;
+// /* showing the time */
+// var todayDate = new Date();
+// var theDate = todayDate.toLocaleTimeString();
+// document.getElementById('current-time').innerHTML = theDate;

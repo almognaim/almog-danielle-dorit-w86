@@ -103,27 +103,27 @@ $fixId = $_GET['id'];
             } else {
                 echo "אירעה תקלה";
             }
-            ?>
-                <h4 class="col-sm-12 text-right" style="margin: 1rem 0rem;"> חלפים:</h4>
-                <table class="table text-center text-right col-sm-12" id="clients">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">מק"ט</th>
-                            <th scope="col">שם</th>
-                            <th scope="col">כמות</th>
-                            <th scope="col">מחיר ליחידה</th>
-                            <th scope="col">סה"כ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $sumAll = 0;
+            
+                    $sumAll = 0;
                         $itemsSql = "select order_items.item_id, order_items.quantity, inventory.price, inventory.name from order_items
                     left join inventory on inventory.id = order_items.item_id
                     where order_items.fix_id =  $fixId";
+                    
                         $itemsRes = mysqli_query($conn, $itemsSql);
 
                         if (mysqli_num_rows($itemsRes) > 0) {
+                            echo '<h4 class="col-sm-12 text-right" style="margin: 1rem 0rem;"> חלפים:</h4>
+                            <table class="table text-center text-right col-sm-12" id="clients">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">מק"ט</th>
+                                        <th scope="col">שם</th>
+                                        <th scope="col">כמות</th>
+                                        <th scope="col">מחיר ליחידה</th>
+                                        <th scope="col">סה"כ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
                             while ($row = mysqli_fetch_assoc($itemsRes)) {
                                 $item = "<tr><th scope='row'>" . $row['item_id'] . "</th><td>" . $row['name'] . "</td><td>" . -$row['quantity'] . "</td><td>" . $row['price'] . "</td>
                             <td>" . ($row['price'] * -$row['quantity']) . "</td></tr>";
@@ -132,11 +132,22 @@ $fixId = $_GET['id'];
                             }
                             // echo $sumAll;
                             echo '</tbody><tfoot><tr><th scope="row"</th><td></td><td></td><td>מחיר סה"כ:</td><td class="totalSum">' . $sumAll . '</td></tr></tfoot>';
-                        } else {
-                            echo "0 results";
                         }
                         ?>
                 </table>
+                <?php
+                    if ($status != 'paid') {
+                        echo '<div class="workInput input-group mt-3 col-md-6" style="margin-bottom: 15px;">
+                        <div class="input-group-append">
+                                <span class="input-group-text">עלות עבודה</span>
+                        </div>
+                        <input type="number" min="0" class="form-control" id="workPrice" aria-label="" value="0">
+                    </div>
+                    <div class="workInput input-group mt-3 col-md-6" style="margin-bottom: 15px;">
+                        <button onclick="startPaypal()" class="text-white btn btn-success approveBtn">אישור</button>
+                    </div>';
+                    }
+                ?>
                 <div id="paypal-button-container"></div>
         </div>
     </div>
@@ -145,16 +156,20 @@ $fixId = $_GET['id'];
 <script>
     var sumTotal = <?php echo $sumAll; ?>;
     var status = "<?php echo $status; ?>";
-    var datastring = "fix_id=" + <?php echo $fixId; ?> + "&identity_card=" + <?php echo $identity; ?> + "&amount=" + sumTotal;
+    var datastring = "fix_id=" + <?php echo $fixId; ?> + "&identity_card=" + <?php echo $identity; ?>;
     console.log(datastring);
+                        
+    function startPaypal () {
 
-    if (status != 'paid') {
-        paypal.Buttons({
+        if(sumTotal + $("#workPrice").val() > 0) {
+            $("#workPrice").prop( "disabled", true );
+            $(".approveBtn").prop( "disabled", true );
+            paypal.Buttons({
             createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: sumTotal
+                            value: sumTotal + $("#workPrice").val()
                         }
                     }]
                 });
@@ -167,7 +182,7 @@ $fixId = $_GET['id'];
                     // Call your server to save the transaction
                     console.log(data);
                     console.log(details);
-                    datastring = datastring + "&order_id=" + details.id + "&payer_id=" + details.payer.payer_id;
+                    datastring = datastring +"&amount=" + sumTotal + $("#workPrice").val() + "&order_id=" + details.id + "&payer_id=" + details.payer.payer_id;
                     console.log(datastring);
                     
                     $.ajax({
@@ -188,5 +203,8 @@ $fixId = $_GET['id'];
                 });
             }
         }).render('#paypal-button-container');
+
+        }
+        
     }
 </script>

@@ -67,7 +67,7 @@ include 'inc/header/header.php';
                         'ניתן לשלם',
                         'success'
                     ).then(function() {
-                        var html = '<a class="bg-dark p-2 text-white rounded" onclick="payFix('+id+'])">שלם</a>'
+                        var html = '<a class="bg-dark p-2 text-white rounded" onclick="payFix('+id+')">שלם</a>'
                         $(".status"+id).html(html);
                     });
                 }
