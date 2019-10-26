@@ -40,7 +40,7 @@ include 'inc/header/header.php'; ?>
 
                 <?php
 
-                $sql = "SELECT fullName, loginHour, logoutHour, TIMESTAMPDIFF(minute, loginHour, logoutHour) as diff FROM clock";
+                $sql = "SELECT fullName, loginHour, logoutHour, TIMESTAMPDIFF(minute, loginHour, logoutHour) as diff FROM clock where logoutHour  IS NOT NULL";
                 $result = mysqli_query($conn, $sql);
 
                 if (mysqli_num_rows($result) > 0) {
